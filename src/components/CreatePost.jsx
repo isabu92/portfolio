@@ -4,7 +4,6 @@ import { useState } from "react"
 import "./CreatePost.css"
 import {auth, db} from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 
 export const CreatePost =({isAuth})=>{
@@ -15,9 +14,6 @@ export const CreatePost =({isAuth})=>{
   const navigate=useNavigate("/timeline");
   
   const createPost=async()=>{
-    console.log(title)
-    console.log(postText)
-    console.log(productURL)
     await addDoc(collection(db,"posts"),{
       title:title,
       postsText:postText,

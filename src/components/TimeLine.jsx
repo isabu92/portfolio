@@ -2,10 +2,10 @@ import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import "./TimeLine.css"
 
-export const Home =()=>{
+export const TimeLine =({isAuth})=>{
   const [postList,setPostList]=useState([])
 
   useEffect(()=>{
@@ -33,16 +33,16 @@ export const Home =()=>{
           <a href={post.productURL} target="_blank" className="postTextContainer">{post.productURL}</a>
         <div className="nameAndDeleteButton">
           <h3>@{post.author.username}</h3>
-          {}
-          <button onClick={()=>onClickDelete(post.id)}>削除</button>
+          {post.author?.id===auth?.currentUser?.uid && 
+            <button onClick={()=>onClickDelete(post.id)}>削除</button>
+          }
         </div>
       </div>
         )
       })}
-
     </div>
 
   )
 }
 
-export default Home;
+export default TimeLine;
